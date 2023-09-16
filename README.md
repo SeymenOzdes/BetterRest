@@ -1,2 +1,2 @@
 # BetterRest
-This is the 4th project I have done within the scope of swiftUI in 100 days.
+BetterRest aims to create an iOS app that utilizes machine learning to provide users with personalized bedtime recommendations. By collecting information about the user's desired wake-up time, desired sleep duration, and daily coffee consumption, the app will calculate and present an ideal bedtime, helping users improve their sleep quality. This is the 4th project I have done within the scope of swiftUI in 100 days.
