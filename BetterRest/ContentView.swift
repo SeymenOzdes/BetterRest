@@ -27,26 +27,24 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             Form {
-                VStack(alignment: .leading, spacing: 0){
-                    Text("When do you want to wake up?")
-                        .font(.headline)
+                Section {
                     DatePicker("Please enter a time ", selection: $wakeUp, displayedComponents: .hourAndMinute)
                         .labelsHidden()
+                } header: {
+                    Text("When do you want to wake up?")
+                        .font(.headline)
                 }
-                VStack(alignment: .leading, spacing: 0) {
+                Section {
+                    Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
+                } header: {
                     Text("Desired amount of sleep")
                         .font(.headline)
-                    Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
                 }
-                VStack(alignment: .leading, spacing: 0) {
+                Section {
+                    Stepper(coffeeAmount == 1 ? "1 cup " : "\(coffeeAmount.formatted()) cups", value: $coffeeAmount, in: 1...20)
+                } header: {
                     Text("Daily coffee intake")
                         .font(.headline)
-                    Picker("Number of cups", selection: $coffeeAmount) {
-                        ForEach(1...20, id: \.self) {
-                            Text("\($0) cup")
-                        }
-                    }
-//                    Stepper(coffeeAmount == 1 ? "1 cup " : "\(coffeeAmount.formatted()) cups", value: $coffeeAmount, in: 1...20)
                 }
             }
             .navigationTitle("BetterRest")
@@ -61,6 +59,7 @@ struct ContentView: View {
         }
     }
     func calculateBedTime() {
+        @State var result: Double = 0
         do {
             let config = MLModelConfiguration()
             let model = try SleepCalculater(configuration: config)
